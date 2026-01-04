@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WhatsDown</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+<body>
+
+<!-- WELCOME SCREEN -->
+<div class="welcome-screen" id="welcomeScreen">
+    <h1>Welcome to <span>WhatsDown</span></h1>
+    <p>Enter your name to enter the chat room</p>
+
+    <input type="text" id="username" placeholder="Your name">
+    <button onclick="enterApp()">Enter</button>
+</div>
+
+<!-- MAIN APP -->
+<div class="app-container hidden" id="appContainer">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>WhatsDown</h2>
+
+        <div class="profile">
+            <div class="avatar"></div>
+            <p id="profileName"></p>
+            <span class="status">● Online</span>
+        </div>
+
+        <div class="groups">
+            <h4>Group Chats</h4>
+            <input type="text" id="room" placeholder="Create / Join group">
+            <button onclick="joinRoom()">Join Group</button>
+        </div>
+
+        <div class="online-users">
+            <h4>Online</h4>
+            <ul id="onlineUsers"></ul>
+        </div>
+
+        <div class="creator">
+            <small id="creatorInfo"></small>
+        </div>
+    </div>
+
+    <!-- CHAT AREA -->
+    <div class="chat-area">
+        <div class="chat-header" id="roomName">
+            Select a group to start chatting
+        </div>
+
+        <div class="messages" id="messages"></div>
+
+        <div class="message-box">
+            <input type="text" id="message" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const socket = io();
+    let username = "";
+    let roomName = "";
+
+    function enterApp() {
+        username = document.getElementById("username").value;
+        if (username === "") return alert("Enter your name");
+
+        document.getElementById("profileName").innerText = username;
+        document.getElementById("welcomeScreen").style.display = "none";
+        document.getElementById("appContainer").classList.remove("hidden");
+    }
+
+    function joinRoom() {
+        roomName = document.getElementById("room").value;
+        if (roomName === "") return alert("Enter group name");
+
+        socket.emit("join", { username: username, room: roomName });
+        document.getElementById("roomName").innerText = roomName;
+        document.getElementById("messages").innerHTML = "";
+    }
+
+    function sendMessage() {
+        const msg = document.getElementById("message").value;
+        if (msg === "") return;
+
+        socket.emit("send_message", { message: msg });
+        document.getElementById("message").value = "";
+    }
+
+    socket.on("message", data => {
+        const messages = document.getElementById("messages");
+        messages.innerHTML += `<div class="msg">${data.msg}</div>`;
+        messages.scrollTop = messages.scrollHeight;
+    });
+
+    socket.on("room_info", data => {
+        document.getElementById("creatorInfo").innerText =
+            `Group created by: ${data.creator}`;
+
+        const ul = document.getElementById("onlineUsers");
+        ul.innerHTML = "";
+
+        data.online_users.forEach(user => {
+            ul.innerHTML += `<li>🟢 ${user}</li>`;
+        });
+    });
+</script>
+
+</body>
+</html>

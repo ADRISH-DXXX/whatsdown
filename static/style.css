@@ -1,0 +1,166 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(135deg, #020617, #0f172a);
+    color: white;
+}
+
+/* WELCOME SCREEN */
+.welcome-screen {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-screen h1 {
+    font-size: 48px;
+}
+
+.welcome-screen h1 span {
+    color: #22c55e;
+}
+
+.welcome-screen p {
+    margin: 15px 0;
+    color: #cbd5f5;
+}
+
+.welcome-screen input {
+    padding: 12px;
+    width: 260px;
+    border-radius: 6px;
+    border: none;
+    margin-bottom: 15px;
+}
+
+.welcome-screen button {
+    padding: 12px 30px;
+    border-radius: 6px;
+    background: #22c55e;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* MAIN APP */
+.app-container {
+    display: flex;
+    height: 100vh;
+}
+
+.hidden {
+    display: none;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 300px;
+    background: #020617;
+    padding: 20px;
+    border-right: 1px solid #1e293b;
+}
+
+.sidebar h2 {
+    color: #22c55e;
+    margin-bottom: 30px;
+}
+
+.profile {
+    margin-bottom: 30px;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    background: #22c55e;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.status {
+    color: #22c55e;
+    font-size: 12px;
+}
+
+.groups input,
+.message-box input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    margin-bottom: 10px;
+}
+
+.groups button,
+.message-box button {
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+}
+
+/* CHAT */
+.chat-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    padding: 15px;
+    background: #020617;
+    border-bottom: 1px solid #1e293b;
+    font-weight: bold;
+}
+
+.messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.msg {
+    background: #1e293b;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    max-width: 70%;
+}
+
+.message-box {
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    border-top: 1px solid #1e293b;
+}
+
+.online-users {
+    margin-top: 20px;
+}
+
+.online-users ul {
+    list-style: none;
+    margin-top: 10px;
+}
+
+.online-users li {
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #22c55e;
+}
+
+.creator {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #cbd5f5;
+}
